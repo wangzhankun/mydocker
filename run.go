@@ -4,10 +4,11 @@ import (
 	"os"
 	"strings"
 
-	log "github.com/sirupsen/logrus"
 	"mydocker/cgroups"
 	"mydocker/cgroups/subsystems"
 	"mydocker/container"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // Run 执行具体 command
@@ -29,12 +30,13 @@ func Run(tty bool, comArray []string, res *subsystems.ResourceConfig) {
 	cgroupManager := cgroups.NewCgroupManager("mydocker-cgroup")
 	defer cgroupManager.Destroy()
 	_ = cgroupManager.Set(res)
-	_ = cgroupManager.Apply(parent.Process.Pid)
-	// 再子进程创建后才能通过匹配来发送参数
+	_ = cgroupManager.Apply(parent.Process.Pid, res)
+	// 再子进程创建后才能通过管道来发送参数
 	sendInitCommand(comArray, writePipe)
 	_ = parent.Wait()
 }
 
+// sendInitCommand 通过writePipe将指令发送给子进程
 func sendInitCommand(comArray []string, writePipe *os.File) {
 	command := strings.Join(comArray, " ")
 	log.Infof("command all is %s", command)

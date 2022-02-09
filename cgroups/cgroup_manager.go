@@ -1,8 +1,9 @@
 package cgroups
 
 import (
-	"github.com/sirupsen/logrus"
 	"mydocker/cgroups/subsystems"
+
+	"github.com/sirupsen/logrus"
 )
 
 type CgroupManager struct {
@@ -19,9 +20,9 @@ func NewCgroupManager(path string) *CgroupManager {
 }
 
 // Apply 将进程pid加入到这个cgroup中
-func (c *CgroupManager) Apply(pid int) error {
+func (c *CgroupManager) Apply(pid int, res *subsystems.ResourceConfig) error {
 	for _, subSysIns := range subsystems.SubsystemsIns {
-		err := subSysIns.Apply(c.Path, pid)
+		err := subSysIns.Apply(c.Path, pid, res)
 		if err != nil {
 			logrus.Errorf("apply subsystem:%s err:%s", subSysIns.Name(), err)
 		}

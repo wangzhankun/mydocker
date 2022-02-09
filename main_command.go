@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 
-	log "github.com/sirupsen/logrus"
-	"github.com/urfave/cli"
 	"mydocker/cgroups/subsystems"
 	"mydocker/container"
+
+	log "github.com/sirupsen/logrus"
+	"github.com/urfave/cli"
 )
 
 var runCommand = cli.Command{
@@ -23,8 +24,8 @@ var runCommand = cli.Command{
 			Usage: "memory limit",
 		},
 		cli.StringFlag{
-			Name:  "cpushare",
-			Usage: "cpushare limit",
+			Name:  "cpu",
+			Usage: "cpu quota",
 		},
 		cli.StringFlag{
 			Name:  "cpuset",
@@ -51,10 +52,8 @@ var runCommand = cli.Command{
 		resConf := &subsystems.ResourceConfig{
 			MemoryLimit: context.String("mem"),
 			CpuSet:      context.String("cpuset"),
-			CpuShare:    context.String("cpushare"),
+			CpuCfsQuota: context.Int("cpu"),
 		}
-		log.Info("resConf:", resConf)
-
 		Run(tty, cmdArray, resConf)
 		return nil
 	},
