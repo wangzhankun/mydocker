@@ -49,6 +49,10 @@
 
 ## 3. 具体实现
 
+### 构造容器
+本章构造了一个简单的容器，具有基本的Namespace隔离，确定了基本的开发架构，后续在此基础上继续完善即可。
+
+
 [3-1 实现 mydocker run 命令](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/03-1-%E5%AE%9E%E7%8E%B0run%E5%91%BD%E4%BB%A4.md)
 
 [3-2 增加Cgroups实现资源限制](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/03-2-%E5%A2%9E%E5%8A%A0cgroups.md)

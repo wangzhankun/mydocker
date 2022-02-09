@@ -8,6 +8,8 @@ import (
 
 	"mydocker/constant"
 
+	log "github.com/sirupsen/logrus"
+
 	"github.com/pkg/errors"
 )
 
@@ -63,9 +65,10 @@ func findCgroupMountpoint(subsystem string) string {
 			}
 		}
 	}
-	if err := scanner.Err(); err != nil {
+
+	if err = scanner.Err(); err != nil {
+		log.Error("read err:", err)
 		return ""
 	}
-
 	return ""
 }
