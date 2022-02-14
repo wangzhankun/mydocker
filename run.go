@@ -34,6 +34,9 @@ func Run(tty bool, comArray []string, res *subsystems.ResourceConfig) {
 	// 再子进程创建后才能通过管道来发送参数
 	sendInitCommand(comArray, writePipe)
 	_ = parent.Wait()
+	mntURL := "/root/merged/"
+	rootURL := "/root/"
+	container.DeleteWorkSpace(rootURL, mntURL)
 }
 
 // sendInitCommand 通过writePipe将指令发送给子进程
