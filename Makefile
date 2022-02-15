@@ -13,3 +13,13 @@ run:
 .PHONY:test
 test:
 	go test ./...
+
+# 执行检测 指定超时时间和配置文件
+.PHONY:lint
+lint:
+	golangci-lint run --timeout=5m --config ./.golangci.yaml
+# 清理缓存
+.PHONY:lint-clean
+lint-clean:
+	golangci-lint cache clean
+
