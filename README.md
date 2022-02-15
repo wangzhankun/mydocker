@@ -2,8 +2,8 @@
 
 ## 1. 概述
 
-《自己动手写 docker》笔记和源码
 
+跟着《自己动手写 docker》从零开始实现一个简易的 docker。
 
 建议先了解一下 Docker 的核心原理大致分析，可以看这篇文章：[Docker教程(三)---核心实现原理分析](https://www.lixueduan.com/post/docker/03-container-core/)。
 

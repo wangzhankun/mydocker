@@ -9,6 +9,8 @@ import (
 	"strings"
 	"syscall"
 
+	"mydocker/constant"
+
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 )
@@ -74,13 +76,20 @@ func setUpMount() {
 		return
 	}
 	log.Infof("Current location is %s", pwd)
-	pivotRoot(pwd)
+	if err = pivotRoot(pwd); err != nil {
+		log.Errorf("pivotRoot error %v", err)
+	}
 
 	// mount proc
 	defaultMountFlags := syscall.MS_NOEXEC | syscall.MS_NOSUID | syscall.MS_NODEV
-	syscall.Mount("proc", "/proc", "proc", uintptr(defaultMountFlags), "")
-
-	syscall.Mount("tmpfs", "/dev", "tmpfs", syscall.MS_NOSUID|syscall.MS_STRICTATIME, "mode=755")
+	err = syscall.Mount("proc", "/proc", "proc", uintptr(defaultMountFlags), "")
+	if err != nil {
+		log.Errorf("mount proc error %v", err)
+	}
+	err = syscall.Mount("tmpfs", "/dev", "tmpfs", syscall.MS_NOSUID|syscall.MS_STRICTATIME, "mode=755")
+	if err != nil {
+		log.Errorf("mount tmpfs error %v", err)
+	}
 }
 
 func pivotRoot(root string) error {
@@ -94,7 +103,7 @@ func pivotRoot(root string) error {
 	}
 	// 创建 rootfs/.pivot_root 目录用于存储 old_root
 	pivotDir := filepath.Join(root, ".pivot_root")
-	if err := os.Mkdir(pivotDir, 0777); err != nil {
+	if err := os.Mkdir(pivotDir, constant.Perm0777); err != nil {
 		return err
 	}
 	// 执行pivot_root调用,将系统rootfs切换到新的rootfs,
