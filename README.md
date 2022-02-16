@@ -48,10 +48,35 @@
 ## 3. 具体实现
 
 ### 构造容器
-本章构造了一个简单的容器，具有基本的Namespace隔离，确定了基本的开发架构，后续在此基础上继续完善即可。
-
+本章构造了一个简单的容器，具有基本的 Namespace 隔离，确定了基本的开发架构，后续在此基础上继续完善即可。
 
 [3-1 实现 mydocker run 命令](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/03-1-%E5%AE%9E%E7%8E%B0run%E5%91%BD%E4%BB%A4.md)
 
 [3-2 增加Cgroups实现资源限制](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/03-2-%E5%A2%9E%E5%8A%A0cgroups.md)
+
+
+
+### 构造镜像
+
+本章首先使用 busybox 作为基础镜像创建了一个容器，理解了什么是 rootfs，以及如何使用 rootfs 来打造容器的基本运行环境。
+
+然后，使用 OverlayFS 来构建了一个拥有二层模式的镜像，对于最上层可写层的修改不会影响到基础层。这里就基本解释了镜像分层存储的原理。
+
+之后使用 -v参 数做了一个 volume 挂载的例子，介绍了如何将容器外部的文件系统挂载到容器中，并且让它可以访问。
+
+最后实现了一个简单版本的容器镜像打包。
+
+这一章主要针对镜像的存储及文件系统做了基本的原理性介绍，通过这几个例子，可以很好地理解镜像是如何构建的，第 5 章会基于这些基础做更多的扩展。
+
+[04-1-使用busybox做rootfs](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/04-1-rootfs.md)
+
+[04-2-overlayfs](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/04-2-overlayfs.md)
+
+[04-3-实现数据卷挂载](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/04-3-volume.md)
+
+[04-4-实现简单镜像打包](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/04-4-%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E9%95%9C%E5%83%8F%E6%89%93%E5%8C%85.md)
+
+
+
+### 构建容器进阶
 
