@@ -39,6 +39,11 @@ var runCommand = cli.Command{
 			Name:  "v",
 			Usage: "volume",
 		},
+		// 提供run后面的-name指定容器名字参数
+		cli.StringFlag{
+			Name:  "name",
+			Usage: "container name",
+		},
 	},
 	/*
 		这里是run命令执行的真正函数。
@@ -60,7 +65,7 @@ var runCommand = cli.Command{
 		detach := context.Bool("d")
 
 		if tty && detach {
-			return fmt.Errorf("it and d paramter can not both provided")
+			return fmt.Errorf("it and d parameter can not both provided")
 		}
 		log.Infof("createTty %v", tty)
 		resConf := &subsystems.ResourceConfig{
@@ -69,7 +74,8 @@ var runCommand = cli.Command{
 			CpuCfsQuota: context.Int("cpu"),
 		}
 		volume := context.String("v")
-		Run(tty, cmdArray, resConf, volume)
+		containerName := context.String("name")
+		Run(tty, cmdArray, resConf, volume, containerName)
 		return nil
 	},
 }
@@ -93,6 +99,15 @@ var commitCommand = cli.Command{
 		}
 		imageName := context.Args().Get(0)
 		commitContainer(imageName)
+		return nil
+	},
+}
+
+var listCommand = cli.Command{
+	Name:  "ps",
+	Usage: "list all the containers",
+	Action: func(context *cli.Context) error {
+		ListContainers()
 		return nil
 	},
 }
