@@ -173,7 +173,7 @@ func mountOverlayFS(rootURL string, mntURL string) {
 	}
 }
 
-// DeleteWorkSpace Delete the AUFS filesystem while container exit
+// DeleteWorkSpace Delete the OverlayFS filesystem while container exit
 func DeleteWorkSpace(rootURL, mntURL, volume string) {
 	// 如果指定了volume则需要先umount volume
 	if volume != "" {

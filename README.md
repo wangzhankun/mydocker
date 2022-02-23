@@ -86,4 +86,8 @@
 
 [05-3-实现查看容器日志 mydocker log](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-3-%E5%AE%9E%E7%8E%B0%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97.md)
 
-[05-4-实现进入容器 Namespace docker exec]()
+[05-4-实现进入容器 mydocker exec](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-4-%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8%20Namespace.md)
+
+[05-5-实现停止容器 mydocker stop](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-5-%E5%AE%9E%E7%8E%B0%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8.md)
+
+[05-6-实现删除容器 mydocker rm]()
