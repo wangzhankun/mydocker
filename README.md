@@ -19,19 +19,17 @@
 
 ### namespace
 
-[namespace 初体验](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/1-namespace-2%E5%88%9D%E4%BD%93%E9%AA%8C.md)
+[namespace 初体验](https://www.lixueduan.com/post/docker/05-namespace/)
 
 
 
 ### Cgroups
 
-[cgroup-1-初体验](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2-cgoups-1%E5%88%9D%E4%BD%93%E9%AA%8C.md)
+[Cgroups-1-初体验](https://www.lixueduan.com/post/docker/06-cgroups-1/)
 
-[cgroup-2-相关操作](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2-cgroups-2%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C.md)
+[Cgroups-2-subsystem演示](https://www.lixueduan.com/post/docker/07-cgroups-2/)
 
-[cgroup-3-演示](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2-cgroups-3%E6%BC%94%E7%A4%BA.md)
-
-[cgroup-4-go操作cgroup](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/2-cgroups-4go%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9C.md)
+[Cgroups-3-相关命令汇总及Go Demo](https://www.lixueduan.com/post/docker/08-cgroups-3/)
 
 
 
@@ -91,3 +89,9 @@
 [05-5-实现停止容器 mydocker stop](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-5-%E5%AE%9E%E7%8E%B0%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8.md)
 
 [05-6-实现删除容器 mydocker rm]()
+
+[05-7-文件系统重构]()
+
+> refactor: 文件系统重构,为不同容器提供独立的rootfs.
+feat: 更新rm命令，删除容器时移除对应文件系统.
+feat: 更新commit命令，实现对不同容器打包.

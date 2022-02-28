@@ -77,6 +77,9 @@ func removeContainer(containerName string) {
 	dirURL := fmt.Sprintf(container.InfoLocFormat, containerName)
 	if err := os.RemoveAll(dirURL); err != nil {
 		log.Errorf("Remove file %s error %v", dirURL, err)
-		return
+	}
+	err = container.DeleteWorkSpace(containerInfo.Volume, containerName)
+	if err != nil {
+		log.Errorf("DeleteWorkSpace error %v", err)
 	}
 }
