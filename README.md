@@ -77,21 +77,32 @@
 
 
 ### 构建容器进阶
+本章实现了容器操作的基本功能。
 
-[05-1-实现容器后台运行 mydocker run -d](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-1-%E5%AE%9E%E7%8E%B0%E5%AE%B9%E5%99%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.md)
+* 首先实现了容器的后台运行，然后将容器的状态在文件系统上做了存储。
+* 通过这些存储信息，又可以实现列出当前容器信息的功能。
+* 并且， 基于后台运行的容器，我们可以去手动停止容器，并清除掉容器的存储信息。
+* 最后修改了上一章镜像的存储结构，使得多个容器可以并存，且存储的内容互不干扰。
 
-[05-2-实现查看运行中的容器 mydocker ps](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-2-%E5%AE%9E%E7%8E%B0%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84%E5%AE%B9%E5%99%A8.md)
 
-[05-3-实现查看容器日志 mydocker log](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-3-%E5%AE%9E%E7%8E%B0%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97.md)
 
-[05-4-实现进入容器 mydocker exec](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-4-%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8%20Namespace.md)
+[05-1-实现容器后台运行：mydocker run -d](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-1-%E5%AE%9E%E7%8E%B0%E5%AE%B9%E5%99%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.md)
 
-[05-5-实现停止容器 mydocker stop](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-5-%E5%AE%9E%E7%8E%B0%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8.md)
+[05-2-实现查看运行中的容器：mydocker ps](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-2-%E5%AE%9E%E7%8E%B0%E6%9F%A5%E7%9C%8B%E8%BF%90%E8%A1%8C%E4%B8%AD%E7%9A%84%E5%AE%B9%E5%99%A8.md)
 
-[05-6-实现删除容器 mydocker rm]()
+[05-3-实现查看容器日志：mydocker log](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-3-%E5%AE%9E%E7%8E%B0%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97.md)
 
-[05-7-文件系统重构]()
+[05-4-实现进入容器：mydocker exec](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-4-%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8%20Namespace.md)
 
-> refactor: 文件系统重构,为不同容器提供独立的rootfs.
-feat: 更新rm命令，删除容器时移除对应文件系统.
-feat: 更新commit命令，实现对不同容器打包.
+[05-5-实现停止容器：mydocker stop](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-5-%E5%AE%9E%E7%8E%B0%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8.md)
+
+[05-6-实现删除容器：mydocker rm]()
+
+[05-7-文件系统重构](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-7-%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%BF%87%E5%AE%B9%E5%99%A8%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F.md)
+
+> refactor: 文件系统重构,为不同容器提供独立的rootfs. 
+feat: 更新rm命令，删除容器时移除对应文件系统. 
+feat: 更新commit命令，实现对不同容器打包. 
+
+[05-8 实现环境变量注入功能：mydocker run -e ](https://github.com/lixd/daily-notes/blob/master/Golang/mydocker/05-8-%E5%AE%9E%E7%8E%B0%E6%8C%87%E5%AE%9A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E8%BF%90%E8%A1%8C.md)
+
