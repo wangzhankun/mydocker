@@ -13,6 +13,7 @@ import (
 	"mydocker/cgroups/subsystems"
 	"mydocker/constant"
 	"mydocker/container"
+	"mydocker/network"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -23,7 +24,8 @@ import (
 进程，然后在子进程中，调用/proc/self/exe,也就是调用自己，发送init参数，调用我们写的init方法，
 去初始化容器的一些资源。
 */
-func Run(tty bool, comArray []string, res *subsystems.ResourceConfig, containerName, volume, imageName string, envSlice []string) {
+func Run(tty bool, comArray []string, res *subsystems.ResourceConfig, containerName, volume, imageName string,
+	envSlice []string, nw string, portMapping []string) {
 	containerID := randStringBytes(container.IDLength)
 	if containerName == "" {
 		containerName = containerID
@@ -47,11 +49,28 @@ func Run(tty bool, comArray []string, res *subsystems.ResourceConfig, containerN
 	defer cgroupManager.Destroy()
 	_ = cgroupManager.Set(res)
 	_ = cgroupManager.Apply(parent.Process.Pid, res)
+
+	if nw != "" {
+		// config container network
+		network.Init()
+		containerInfo := &container.Info{
+			Id:          containerID,
+			Pid:         strconv.Itoa(parent.Process.Pid),
+			Name:        containerName,
+			PortMapping: portMapping,
+		}
+		if err = network.Connect(nw, containerInfo); err != nil {
+			log.Errorf("Error Connect Network %v", err)
+			return
+		}
+	}
+
 	// 在子进程创建后才能通过管道来发送参数
 	sendInitCommand(comArray, writePipe)
 	if tty { // 如果是tty，那么父进程等待
 		_ = parent.Wait()
-		deleteContainerInfo(volume, containerName)
+		deleteContainerInfo(containerName)
+		_ = container.DeleteWorkSpace(volume, containerName)
 	}
 }
 
@@ -105,7 +124,7 @@ func recordContainerInfo(containerPID int, commandArray []string, containerName,
 	return nil
 }
 
-func deleteContainerInfo(volume, containerName string) {
+func deleteContainerInfo(containerName string) {
 	dirURL := fmt.Sprintf(container.InfoLocFormat, containerName)
 	if err := os.RemoveAll(dirURL); err != nil {
 		log.Errorf("Remove dir %s error %v", dirURL, err)
